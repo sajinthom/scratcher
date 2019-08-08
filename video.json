@@ -1,36 +1,21 @@
-[
-
+[ 
   {
-    "name": "Samples",
-    "samples": [
-      {
-        "name": "600kbps 360p H264",
-        "uri": "http://live1.model.vhe.telstra.com/out/u/mobile_test/600k_h264.m3u8"
-      },
-      {
-        "name": "1500kbps 576p H264",
-        "uri": "http://live1.model.vhe.telstra.com/out/u/mobile_test/1500k_h264.m3u8"
-      },
-      {
-        "name": "1000kbps 576p HEVC",
-        "uri": "http://live1.model.vhe.telstra.com/out/u/mobile_test/1500k_hevc.m3u8"
-      },
-      {
-        "name": "1500kbps 720p HEVC",
-        "uri": "http://live1.model.vhe.telstra.com/out/u/mobile_test/1500k_720p_hevc.m3u8"
-      },
-      {
-        "name": "1500kbps 576p H264 - HE2.5",
-        "uri": "http://live3.syd2.vhe.telstra.com/hls/afl_afltv_h264/index.m3u8"
-      },
-      {
-        "name": "1020kbps 576p HEVC - HE2.5",
-        "uri": "http://live3.syd2.vhe.telstra.com/hls/afl_afltv_hevc/index.m3u8"
-      },
-      {
-        "name": "1024kbps 576p HEVC - fMP4",
-        "uri": "http://203.42.44.64/hls/fmp4/index.m3u8"
-      }
+    "assets":[
+       {
+         "embed_code":"pvdDFyZDE6Sgh3zDEh7cgeAfebP52z5x",
+          "stream_urls":{
+             "ipad":"http://aflwmobileshlslive2468.ngcdn.telstra.com/out/u/protected/aflwch1-mo-000-c3059-delpkg2-delogg2-abr1/index.m3u8",
+             "iphone":"http://aflwmobileshlslive2468.ngcdn.telstra.com/out/u/protected/aflwch1-mo-000-c3059-delpkg2-delogg2-abr1/index.m3u8",
+             "flash":"http://1.1.1.1/test.f4m",
+             "smooth":"http://aflwttvsmlive2447.ngcdn.telstra.com/out/u/aflwch1-ttv-000-liv001-delpkg1-delogg1-abr1/stream.ism/Manifest"
+          },
+          "movie_urls":{
+             "dash":"https://mdntest11.ngcdn03.telstra.com/lte/sc3unicast/manifest.mpd",
+             "hls":"https://aflliveshlsjit2357.ngcdn.telstra.com.com/hls/afl/afl_afltvon_h264/root-index.m3u8"
+             "smooth":"http://aflwttvsmlive2447.ngcdn.telstra.com/out/u/aflwch1-ttv-000-liv001-delpkg1-delogg1-abr1/stream.ism/Manifest"
+          },
+          "description":"AFLW Live Stream A"
+       }
     ]
-  }
+ } 
 ]
