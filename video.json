@@ -1,21 +1,17 @@
-[ 
-  {
-    "assets":[
-       {
-         "embed_code":"pvdDFyZDE6Sgh3zDEh7cgeAfebP52z5x",
-          "stream_urls":{
-             "ipad":"http://test.ngcdn.telstra.com/out/u/protected/aflwch1-mo-000-c3059-delpkg2-delogg2-abr1/index.m3u8",
-             "iphone":"http://test.ngcdn.telstra.com/out/u/protected/aflwch1-mo-000-c3059-delpkg2-delogg2-abr1/index.m3u8",
-             "flash":"http://1.1.1.1/test.f4m",
-             "smooth":"http://test.ngcdn.telstra.com/out/u/aflwch1-ttv-000-liv001-delpkg1-delogg1-abr1/stream.ism/Manifest"
-          },
-          "movie_urls":{
-             "dash":"https://mdntest11.ngcdn03.telstra.com/lte/sc3unicast/manifest.mpd",
-             "hls":"https://test.ngcdn.telstra.com.com/hls/afl/afl_afltvon_h264/root-index.m3u8",
-             "smooth":"http://test.ngcdn.telstra.com/out/u/aflwch1-ttv-000-liv001-delpkg1-delogg1-abr1/stream.ism/Manifest"
-          },
-          "description":"AFLW Live Stream A"
-       }
-    ]
- } 
-]
+{
+  "assets": [
+    {
+      "embed_code": "J5YTc5aTE6KSkYmzsEkn4wKz4pXC5O90",
+      "stream_urls": {
+        "ipad": "http://test.ngcdn.telstra.com/out/u/protected/aflwch1-mo-000-c3059-delpkg2-delogg2-abr1/index.m3u8",
+        "iphone": "http://test.ngcdn.telstra.com/out/u/protected/aflwch1-mo-000-c3059-delpkg2-delogg2-abr1/index.m3u8",
+        "flash": "http://1.1.1.1/test.f4m",
+        "smooth": "http://test.ngcdn.telstra.com/out/u/aflwch1-ttv-000-liv001-delpkg1-delogg1-abr1/stream.ism/Manifest"
+      },
+      "movie_urls": {
+        "hls": "https://aflliveshlsjit2357.ngcdn.telstra.com/hls/afl2_h264_fps/afl_afltv_h264_nondrm/root-index.m3u8"
+      }
+   
+    }
+  ]
+}

@@ -2,6 +2,7 @@ var config = '';
 var api_secret = '';
 var api_secret = '';
 var configured_embedcodes = {};
+var base_url = "https://api.ooyala.com";
 configured_embedcodes["assets"] = [];
 
 $(document).ready(function () {
@@ -22,9 +23,27 @@ function ImplementChange(embedcode) {
   console.log('clicked Button:' + embedcode);
   updateAPIKeys();
   var o = searchEmbedCode(embedcode, config.assets);
-  var p = { stream_urls: o.stream_urls };
-  var time = Math.floor(Date.now() / 1000) + 10;
-  update_embedcode(embedcode, api_key, api_secret, time, JSON.stringify(p));
+  var stream_url_list = { stream_urls: o.stream_urls };
+  var movie_urls_list = o.movie_urls;
+  var time = Math.floor(Date.now() / 1000) + 100;
+  console.log(o);
+  console.log(stream_url_list);
+  console.log(movie_urls_list);
+
+  // Based on the end point, we need to determine the method to be used
+  // update_embedcode(embedcode, api_key, api_secret, time, JSON.stringify(p));
+
+  // Firstly movie_urls
+  if (!!movie_urls_list) {
+    update_embedcode("POST", "/v2/assets/" + embedcode + "/movie_urls", api_key, api_secret, time, JSON.stringify(movie_urls_list));
+  }
+
+  // Secondly movie_urls
+  if (!!stream_url_list) {
+    update_embedcode("PATCH", "/v2/assets/" + embedcode, api_key, api_secret, time, JSON.stringify(movie_urls_list));
+  }
+
+
   console.log('foo');
 }
 
@@ -41,11 +60,11 @@ function log(message) {
 };
 
 
-function getCurrentConfig(embedcode, api_key, api_secret, expires) {
+function getCurrentConfig(path, api_key, api_secret, expires) {
   $.ajax({
     type: "GET",
-    url: "https://api.ooyala.com/v2/assets/" + embedcode + "?api_key=" + api_key + "&expires=" + expires + "&signature=" + getSignature(api_secret, api_key, "GET",
-      "/v2/assets/" + embedcode, expires, ''),
+    url: base_url + path + "?api_key=" + api_key + "&expires=" + expires + "&signature=" + getSignature(api_secret, api_key, "GET",
+      path, expires, ''),
 
     dataType: "text",
     success: function (data) {
@@ -55,11 +74,19 @@ function getCurrentConfig(embedcode, api_key, api_secret, expires) {
       console.log(data);
       embed["embed_code"] = json.embed_code;
       embed["stream_urls"] = {};
-      embed["stream_urls"]["ipad"] = json.stream_urls.ipad;
-      embed["stream_urls"]["iphone"] = json.stream_urls.iphone;
-      embed["stream_urls"]["flash"] = json.stream_urls.flash;
-      embed["stream_urls"]["smooth"] = json.stream_urls.smooth;
-      embed["description"] = json.description;
+      if (path.includes("stream_urls")) {
+        embed["stream_urls"]["ipad"] = json.stream_urls.ipad;
+        embed["stream_urls"]["iphone"] = json.stream_urls.iphone;
+        embed["stream_urls"]["flash"] = json.stream_urls.flash;
+        embed["stream_urls"]["smooth"] = json.stream_urls.smooth;
+        embed["description"] = json.description;
+      }
+      embed["movie_urls"] = {};
+      if (path.includes("movie_urls")) {
+        embed["movie_urls"]=json.movie_urls;
+
+      }
+
 
       configured_embedcodes["assets"].push(embed);
       jsondata = JSON.stringify(configured_embedcodes);
@@ -76,15 +103,11 @@ function getCurrentConfig(embedcode, api_key, api_secret, expires) {
 }
 
 
-function getConfig(embedcode, api_key, api_secret, expires) {
-
-}
-
-function update_embedcode(method, embedcode, api_key, api_secret, expires, json) {
+function update_embedcode(method, path, api_key, api_secret, expires, json) {
   $.ajax({
     type: method,
-    url: "https://api.ooyala.com/v2/assets/" + embedcode + "?api_key=" + api_key + "&expires=" + expires + "&signature=" + getSignature(api_secret, api_key, method,
-      "/v2/assets/" + embedcode, expires, json),
+    url: base_url + path + "?api_key=" + api_key + "&expires=" + expires + "&signature=" + getSignature(api_secret, api_key, method,
+      path, expires, json),
     data: json,
     dataType: "text",
     success: function (data) {
@@ -128,14 +151,16 @@ function syntaxHighlight(json) {
 
 function Sync() {
   updateAPIKeys();
-
   configured_embedcodes["assets"] = [];
-
-
-
   for (var i = config.assets.length - 1; i >= 0; i--) {
     var time = Math.floor(Date.now() / 1000) + 300;
-    getCurrentConfig(config.assets[i].embed_code, api_key, api_secret, time);
+    // Get stream_urls
+    getCurrentConfig("/v2/assets/" + config.assets[i].embed_code, api_key, api_secret, time);
+
+    // Get movie_urls
+    getCurrentConfig("/v2/assets/" + config.assets[i].embed_code + "/movie_urls", api_key, api_secret, time);
+
+
   };
 
 }
