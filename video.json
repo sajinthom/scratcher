@@ -9,7 +9,7 @@
         "smooth": "http://test.ngcdn.telstra.com/out/u/aflwch1-ttv-000-liv001-delpkg1-delogg1-abr1/stream.ism/Manifest"
       },
       "movie_urls": {
-        "hls": "https://aflliveshlsjit2357.ngcdn.telstra.com/hls/afl2_h264_fps/afl_afltv_h264_nondrm/root-index.m3u8"
+        "hls": "https://test.ngcdn.telstra.com/hls/afl2_h264_fps/afl_afltv_h264_nondrm/root-index.m3u8"
       }
    
     }
