@@ -220,7 +220,7 @@ function handleFileSelect(evt) {
       $('#resultstable').empty();
       var html = '';
       for (i = 0; i < config.assets.length; i++) {
-        html += '<tr><td><p class="text-left">' + config.assets[i].description + '</p></td>' +
+        html += '<tr><td><p class="text-left">' + config.assets[i].name + '</p></td>' +
           '<td><p class="text-left">' + config.assets[i].embed_code + '</p></td>' +
           '<td><button onclick="ImplementChange(\'' + config.assets[i].embed_code + '\');" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></td>' +
           '<td><button onclick="infoclick(\'' + config.assets[i].embed_code + '\');" type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span></button></td>' +
@@ -267,7 +267,7 @@ function infoclick(embedcode) {
       var s = searchEmbedCode(embedcode, config.assets)
       html += '<tr><td><p class="text-left">embedcode</p></td><td>' + json.embed_code + '</td>' +
         '<tr><td><p class="text-left">Title</p></td><td>' + json.name + '</td>' +
-        '<tr><td><p class="text-left">Description</p></td><td>' + json.description + '</td>' +
+        '<tr><td><p class="text-left">Name</p></td><td>' + json.name + '</td>' +
         '<tr><td><p class="text-left">ipad url</p></td><td>' + json.stream_urls.ipad + '</td>' +
         '<tr><td><p class="text-left">iphone url</p></td><td>' + json.stream_urls.iphone + '</td>' +
         '<tr><td><p class="text-left">flash url</p></td><td>' + json.stream_urls.flash + '</td>' +
