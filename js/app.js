@@ -2,6 +2,7 @@ var config = '';
 var api_secret = '';
 var api_secret = '';
 var configured_embedcodes = {};
+var combined_details = {};
 var base_url = "https://api.ooyala.com";
 configured_embedcodes["assets"] = [];
 
@@ -72,25 +73,28 @@ function getCurrentConfig(path, api_key, api_secret, expires) {
       var embed = {};
       var json = JSON.parse(data);
       console.log(data);
-      embed["embed_code"] = json.embed_code;
-      embed["stream_urls"] = {};
-      if (path.includes("stream_urls")) {
+
+      if (path.includes("movie_urls")) {
+        embed["movie_urls"] = json;
+        embed["embed_code"] = path.split("/")[3];
+
+      }
+      else {
+        embed["embed_code"] = json.embed_code;
+        embed["stream_urls"] = {};
         embed["stream_urls"]["ipad"] = json.stream_urls.ipad;
         embed["stream_urls"]["iphone"] = json.stream_urls.iphone;
         embed["stream_urls"]["flash"] = json.stream_urls.flash;
         embed["stream_urls"]["smooth"] = json.stream_urls.smooth;
         embed["description"] = json.description;
-      }
-      embed["movie_urls"] = {};
-      if (path.includes("movie_urls")) {
-        embed["movie_urls"]=json.movie_urls;
-
+        embed["name"] = json.name;
       }
 
-
+      console.log("embed -"+embed);
       configured_embedcodes["assets"].push(embed);
       jsondata = JSON.stringify(configured_embedcodes);
-      console.log(jsondata);
+      console.log("jsondata -"+jsondata);
+      console.log("configured_embedcodes -"+configured_embedcodes);
 
       log(JSON.stringify(data, undefined, 2));
       log("successfully queried");
@@ -154,6 +158,7 @@ function Sync() {
   configured_embedcodes["assets"] = [];
   for (var i = config.assets.length - 1; i >= 0; i--) {
     var time = Math.floor(Date.now() / 1000) + 300;
+
     // Get stream_urls
     getCurrentConfig("/v2/assets/" + config.assets[i].embed_code, api_key, api_secret, time);
 
@@ -161,13 +166,32 @@ function Sync() {
     getCurrentConfig("/v2/assets/" + config.assets[i].embed_code + "/movie_urls", api_key, api_secret, time);
 
 
-  };
+  }
+
+  // Combined under same embed codes 
+  // combined_details["assets"] = [];
+  // for (var i = config.assets.length - 1; i >= 0; i--) {
+  //   if (configured_embedcodes["assets"][i].movie_urls) {
+  //     for (var j = config.assets.length - 1; j >= 0; j--) {
+  //       if (configured_embedcodes["assets"][i].embed_code == configured_embedcodes["assets"][j].embed_code) {
+  //         if (!configured_embedcodes["assets"][j].movie_urls) {
+  //           // Combine the json structure as per the embed code
+  //           combined_details["assets"] = configured_embedcodes["assets"][j];
+  //           combined_details["assets"] = configured_embedcodes["assets"][i].movie_urls;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+
+
+
 
 }
 
 function Download() {
   var pom = document.createElement('a');
-  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(configured_embedcodes), null, 2));
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(JSON.stringify(configured_embedcodes), null, '\t'));
   pom.setAttribute('download', "ooyala-config.json");
 
   if (document.createEvent) {
