@@ -73,10 +73,11 @@ function getCurrentConfig(path, api_key, api_secret, expires) {
       var embed = {};
       var json = JSON.parse(data);
       console.log(data);
+      var embed_code = path.split("/")[3];
 
       if (path.includes("movie_urls")) {
         embed["movie_urls"] = json;
-        embed["embed_code"] = path.split("/")[3];
+        embed["embed_code"] = embed_code;
 
       }
       else {
@@ -96,12 +97,12 @@ function getCurrentConfig(path, api_key, api_secret, expires) {
       console.log("jsondata -" + jsondata);
       console.log("configured_embedcodes -" + configured_embedcodes);
 
-      log(JSON.stringify(data, undefined, 2));
-      log(json.embed_code + " - successfully queried");
+      log(JSON.stringify(data, undefined, '\t'));
+      log(embed_code + " - successfully queried");
     },
     error: function (data, textStatus, errorThrown) {
       log(JSON.stringify(data, undefined, 2));
-      log(json.embed_code + " - error getting info about the asset");
+      log(embed_code + " - error getting info about the asset");
     }
   });
 }
