@@ -207,6 +207,12 @@ function Download() {
 
 }
 
+
+function ClearLog() {
+
+  $('#output').empty();
+}
+
 function handleFileSelect(evt) {
   var files = evt.target.files; // FileList object
   f = files[0];
