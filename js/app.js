@@ -90,18 +90,18 @@ function getCurrentConfig(path, api_key, api_secret, expires) {
         embed["name"] = json.name;
       }
 
-      console.log("embed -"+embed);
+      console.log("embed -" + embed);
       configured_embedcodes["assets"].push(embed);
       jsondata = JSON.stringify(configured_embedcodes);
-      console.log("jsondata -"+jsondata);
-      console.log("configured_embedcodes -"+configured_embedcodes);
+      console.log("jsondata -" + jsondata);
+      console.log("configured_embedcodes -" + configured_embedcodes);
 
       log(JSON.stringify(data, undefined, 2));
-      log("successfully queried");
+      log(json.embed_code + " - successfully queried");
     },
     error: function (data, textStatus, errorThrown) {
       log(JSON.stringify(data, undefined, 2));
-      log("error getting info about the asset");
+      log(json.embed_code + " - error getting info about the asset");
     }
   });
 }
@@ -118,12 +118,12 @@ function update_embedcode(method, path, api_key, api_secret, expires, json) {
       console.log("updated successfully" + data);
 
       log(JSON.stringify(data, undefined, 2));
-      log("successfully updated");
+      log(path + " - successfully updated");
     },
     error: function (data, textStatus, errorThrown) {
       console.log(data);
       log(JSON.stringify(data, undefined, 2));
-      log("error updating the asset");
+      log(path + "error updating the asset");
     }
   });
 }
@@ -276,12 +276,12 @@ function infoclick(embedcode) {
 
       $('#infotable').html(html);
       log(JSON.stringify(data, undefined, 2));
-      log("successfully queried the asset information");
+      log(embedcode + " - successfully queried the asset information");
 
     },
     error: function (data, textStatus, errorThrown) {
       log(JSON.stringify(data, undefined, 2));
-      log("error getting info about the asset");
+      log(embedcode + "error getting info about the asset");
     }
   });
 }
