@@ -41,7 +41,7 @@ function ImplementChange(embedcode) {
 
   // Secondly movie_urls
   if (!!stream_url_list) {
-    update_embedcode("PATCH", "/v2/assets/" + embedcode, api_key, api_secret, time, JSON.stringify(movie_urls_list));
+    update_embedcode("PATCH", "/v2/assets/" + embedcode, api_key, api_secret, time, JSON.stringify(stream_url_list));
   }
 
 
